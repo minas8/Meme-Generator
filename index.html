@@ -10,7 +10,6 @@
 
 <body onload="init()">
 
-
     <header class="main-header nav-bar-bg container">
         <div class="header-container inner-container flex space-between align-items">
             <div class="logo header-logo">
@@ -24,52 +23,124 @@
         </div>
     </header>
 
-    <div class="search-container container borders-content">
-        <div class="search inner-container flex space-between">
+    <main class="main-content container">
+        <div class="search-container">
+            <div class="search inner-container flex space-between">
 
-        </div>
-    </div>
-    <!-- Image Gallery -->
-    <section class="image-gallery">
-        <div class="gallery-container container borders-content">
-            <div class="gallery inner-container">
-                <div class="gallery-imgs grid">
-
-                </div>
             </div>
         </div>
-    </section>
+        <!-- Image Gallery -->
+        <section class="image-gallery">
+            <div class="gallery-container container">
+                <div class="gallery inner-container">
+                    <div class="gallery-imgs grid">
 
-    <!-- Meme Editor -->
-    <section hidden class="meme-editor">
-        <div class="meme-container container borders-content">
-            <div class="meme inner-container flex space-evenly">
-                <div class="canvas-container">
-                    <canvas id="meme-canvas" width="550" height="540"></canvas>
-                </div>
-                <div class="editor-tools">
-                    <table>
-                        <tr>
-                            <td>
-                                <input type="text" name="txt" onkeyup="onTextChange(this.value)">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <button onclick="setShape('text')">Text</button>
-                            </td>
-                        </tr>
-                    </table>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section class="about container borders-content">
-        <div class="inner-container">
+        <!-- Meme Editor -->
+        <section hidden class="meme-editor">
+            <div class="meme-container container">
+                <div class="meme inner-container flex space-evenly">
+                    <div class="canvas-container">
+                        <canvas id="meme-canvas" width="550" height="540"></canvas>
+                    </div>
+                    <div class="line-controls">
+                        <table>
+                            <tr>
+                                <td>
+                                    <input class="input input-text" type="text" name="txt"
+                                        oninput="onTextChange('input-text',this.value)">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="flex justify-center">
+                                    <div class="input icon">
+                                        <img src="img/icons/up-arrow.png" alt="Move up"
+                                            onclick="onTextChange('move-up',-1)">
+                                    </div>
+                                    <div class="input icon">
+                                        <img src="img/icons/down-arrow.png" alt="Move down"
+                                            onclick="onTextChange('move-down',1)">
+                                    </div>
+                                    <div class="input icon">
+                                        <!-- <button type="button"></button> -->
+                                        <img src="img/icons/switch-between-lines.png" alt="Switch between lines"
+                                            onclick="onTextChange('switch-lines',1)">
+                                    </div>
+                                    <div class="input icon">
+                                        <img src="img/icons/add.png" alt="Add" onclick="">
+                                    </div>
+                                    <div class="input icon">
+                                        <img src="img/icons/trash.png" alt="Trash" onclick="">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="flex justify-center">
+                                    <div class="input icon">
+                                        <img src="img/icons/increase-font-icon.png" alt="Increase font"
+                                            onclick="onTextChange('increase',1)">
+                                    </div>
+                                    <div class="input icon">
+                                        <img src="img/icons/decrease-font-icon.png" alt="Decrease font"
+                                            onclick="onTextChange('decrease',-1)">
+                                    </div>
+                                    <div class="input icon">
+                                        <img src="img/icons/align-to-left.png" alt="Align to left"
+                                            onclick="onTextChange('align-left','right')">
+                                    </div>
+                                    <div class="input icon">
+                                        <img src="img/icons/center-text-alignment.png" alt="Center text alignment"
+                                            onclick="onTextChange('align-center','center')">
+                                    </div>
+                                    <div class="input icon">
+                                        <img src="img/icons/align-to-right.png" alt="Align to right"
+                                            onclick="onTextChange('align-right','left')">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="flex justify-center">
+                                    <div class="input icon">
+                                        <select name="select-font" id="select-font" onchange="">
+                                            <option value="0">Impact</option>
+                                        </select>
+                                    </div>
+                                    <div class="input icon pos-relative">
+                                        <input type="color" class="stroke-color" name="stroke-color" id="stroke-color"
+                                            value="#ffffff" onchange="onTextChange('stroke-color',this.value)">
+                                        <img src="img/icons/text-stroke.png" alt="Text stroke">
+                                    </div>
+                                    <div class="input icon pos-relative">
+                                        <input type="color" class="fill-color" name="fill-color" id="fill-color"
+                                            value="#ffffff" onchange="onTextChange('fill-color',this.value)">
+                                        <!-- style="opacity:0; position:absolute; left:0;top:0;width:100%;height:100%;z-index: 2;" -->
+                                        <img src="img/icons/paint-board-and-brush.png" alt="Paint board and brush">
+                                    </div>
 
-        </div>
-    </section>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <!-- <button onclick="setShape('text')">Text</button> -->
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="about container">
+            <div class="inner-container">
+
+            </div>
+        </section>
+    </main>
 
     <footer class="main-footer container">
         <div class="footer inner-container">
@@ -82,6 +153,7 @@
         </div>
     </footer>
 
+    <script src="js/util-service.js"></script>
     <script src="js/storage-service.js"></script>
     <script src="js/meme-service.js"></script>
     <!-- <script src="js/gallery-service.js"></script> -->

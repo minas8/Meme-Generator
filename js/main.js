@@ -1,9 +1,8 @@
 'use strict'
+// console.log('MAIN');
 
 function init() {
-    // console.log('MAIN');
     renderGallery();
-
 }
 
 function renderGallery() {
@@ -11,7 +10,8 @@ function renderGallery() {
 
     if (imgs.length > 0) {
         var strHTMLs = imgs.map((img) => {
-            return `<img class="gallery-item" src="${img.url}" alt="${img.id}" onclick="onSelectImage(${img.id})">`;
+            return `<img class="gallery-item" src="${img.url}" alt="${img.id}" 
+                        onclick="onSelectImage(${img.id})">`;
         });
         getEl('.gallery-imgs').innerHTML = strHTMLs.join('');
     }
