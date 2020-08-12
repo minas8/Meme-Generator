@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meme Generator</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body onload="init()">
+
+
+    <header class="main-header nav-bar-bg container">
+        <div class="header-container inner-container flex space-between align-items">
+            <div class="logo header-logo">
+                <img src="img/logo.png" alt="MemeGen logo">
+            </div>
+            <ul class="main-nav clean-list flex">
+                <li class="clicked"><a href="#" onclick="onShowGallery()">Gallery</a></li>
+                <span> | </span>
+                <li><a href="#">About</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="search-container container borders-content">
+        <div class="search inner-container flex space-between">
+
+        </div>
+    </div>
+    <!-- Image Gallery -->
+    <section class="image-gallery">
+        <div class="gallery-container container borders-content">
+            <div class="gallery inner-container">
+                <div class="gallery-imgs grid">
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Meme Editor -->
+    <section hidden class="meme-editor">
+        <div class="meme-container container borders-content">
+            <div class="meme inner-container flex space-evenly">
+                <div class="canvas-container">
+                    <canvas id="meme-canvas" width="550" height="540"></canvas>
+                </div>
+                <div class="editor-tools">
+                    <table>
+                        <tr>
+                            <td>
+                                <input type="text" name="txt" onkeyup="onTextChange(this.value)">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button onclick="setShape('text')">Text</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="about container borders-content">
+        <div class="inner-container">
+
+        </div>
+    </section>
+
+    <footer class="main-footer container">
+        <div class="footer inner-container">
+            <div class="logo footer-logo">
+                <img src="img/logo.png" alt="MemeGen logo">
+            </div>
+            <small class="copyrights">
+                © all rights reserved 2019
+            </small>
+        </div>
+    </footer>
+
+    <script src="js/storage-service.js"></script>
+    <script src="js/meme-service.js"></script>
+    <!-- <script src="js/gallery-service.js"></script> -->
+    <script src="js/util-controller.js"></script>
+    <script src="js/meme-controller.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
