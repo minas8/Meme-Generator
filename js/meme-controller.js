@@ -69,6 +69,10 @@ function initCanvas() {
     gCanvas = document.querySelector('#meme-canvas');
     gCtx = gCanvas.getContext('2d');
 
+    gCanvas.addEventListener('mousedown', function (e) {
+        getCursorPosition(e);
+    });
+
     drawImgFromlocal();
 }
 
@@ -80,27 +84,25 @@ function drawImgFromlocal(txt) {
         gCanvas.height = Math.round((img.height / img.width) * gCanvas.width);
         gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height); //img,x,y,xend,yend
 
+        const lineIdx = getSelectedLineIdx();
         let lines = getMemeLines();
         if (lines || lines.length > 0) {
-            lines.map((line) => {
+            lines.map((line, idx) => {
                 // destructuring vars from selectedLine
-                const { txt, size, align, fillcolor, strokecolor, font, x, y } = line;
-                drawText(txt, size, align, fillcolor, strokecolor, font, x, y);
+                const { txt, font, size, align, strokecolor, fillcolor, x, y } = line;
+
+                if (lineIdx === idx) drawRect(y, size);
+
+                drawText(txt, font, size, align, strokecolor, fillcolor, x, y);
             });
         }
-
-        const lineIdx = getSelectedLineIdx();
-        // // destructuring vars from selectedLine
-        // const { txt, size, align, fillcolor, strokecolor, font, x, y } = getSelectedLineByIdx(lineIdx);
-
-        // drawText(txt, size, align, fillcolor, strokecolor, font, x, y);
     }
     const selectedImg = getSelectedImg();
     img.src = selectedImg.url;
 }
 
 // f. Draw a text line on it with IMPACT font at the top of the image.
-function drawText(txt, size, align, fillcolor, strokecolor, font, x, y) {
+function drawText(txt, font, size, align, strokecolor, fillcolor, x, y) {
     gCtx.lineWidth = '2';
     gCtx.strokeStyle = strokecolor;
     gCtx.fillStyle = fillcolor;
@@ -108,4 +110,18 @@ function drawText(txt, size, align, fillcolor, strokecolor, font, x, y) {
     gCtx.textAlign = align;
     gCtx.fillText(txt, x, y);
     gCtx.strokeText(txt, x, y);
+}
+
+function drawRect(y, size) {
+    gCtx.beginPath();
+    gCtx.rect(10, y - size, gCanvas.width - 20, size + 10); /// x, y, width, height
+    gCtx.strokeStyle = 'white';
+    gCtx.stroke();
+}
+
+function getCursorPosition(event) {
+    const rect = gCanvas.getBoundingClientRect()
+    const x = event.clientX - rect.left
+    const y = event.clientY - rect.top
+    // console.log("x: " + x + " y: " + y)
 }
