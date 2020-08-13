@@ -10,123 +10,138 @@
 
 <body onload="init()">
 
-    <header class="main-header nav-bar-bg container">
-        <div class="header-container inner-container flex space-between align-items">
-            <div class="logo header-logo">
-                <img src="img/logo.png" alt="MemeGen logo">
+    <header class="main-header">
+        <div class="nav-bar-bg container ">
+            <div class="nav-bar inner-container flex space-between align-items">
+                <div class="logo header-logo">
+                    <img src="img/logo.png" alt="MemeGen logo">
+                </div>
+                <ul class="main-nav clean-list flex">
+                    <li class="clicked"><a href="#" onclick="onShowGallery()">Gallery</a></li>
+                    <li><a href="#">About</a></li>
+                </ul>
             </div>
-            <ul class="main-nav clean-list flex">
-                <li class="clicked"><a href="#" onclick="onShowGallery()">Gallery</a></li>
-                <li><a href="#">About</a></li>
-            </ul>
         </div>
     </header>
 
     <main class="main-content container">
-        <div class="search-container">
-            <div class="search inner-container flex space-between">
+        <div class="container flex direction-column">
 
-            </div>
-        </div>
-        <!-- Image Gallery -->
-        <section class="image-gallery">
-            <div class="gallery-container container">
+            <!-- Search -->
+            <section class="main-search">
+                <div class="search-container inner-container flex">
+                    <div class="search">
+                        <!-- <input type="search" name="search" id="search"> -->
+                        <!-- <img src="img/icons/search-icon.png" alt=""> -->
+                    </div>
+                    <div class="keywords-container">
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- Image Gallery -->
+            <section class="image-gallery gallery-container">
                 <div class="gallery inner-container">
                     <div class="gallery-imgs grid">
 
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- Meme Editor -->
-        <section hidden class="meme-editor">
-            <div class="meme-container container">
-                <div class="meme inner-container flex space-evenly">
-                    <div class="canvas-container">
-                        <canvas id="meme-canvas" width="550" height="540"></canvas>
-                    </div>
-                    <div class="control-box">
-                        <div class="ctrl txt-ctrl">
-                            <input class="input input-text" type="text" name="txt"
-                                oninput="onTextChange('input-text',this.value)">
+            <!-- Meme Editor -->
+            <section hidden class="meme-editor">
+                <div class="meme-container">
+                    <div class="meme inner-container flex space-evenly">
+                        <div class="canvas-container">
+                            <canvas id="meme-canvas" width="550" height="540"></canvas>
                         </div>
-                        <div class="ctrl line1 flex justify-center">
-                            <div class="input icon">
-                                <img src="img/icons/up-arrow.png" alt="Move up" onclick="onTextChange('move-up',-1)">
+                        <div class="control-box">
+                            <div class="ctrl txt-ctrl">
+                                <input class="input input-text" type="text" name="txt"
+                                    oninput="onTextChange('input-text',this.value)">
                             </div>
-                            <div class="input icon">
-                                <img src="img/icons/down-arrow.png" alt="Move down"
-                                    onclick="onTextChange('move-down',1)">
+                            <div class="ctrl line1 flex justify-center">
+                                <div class="input icon">
+                                    <img src="img/icons/up-arrow.png" alt="Move up"
+                                        onclick="onTextChange('move-up',-1)">
+                                </div>
+                                <div class="input icon">
+                                    <img src="img/icons/down-arrow.png" alt="Move down"
+                                        onclick="onTextChange('move-down',1)">
+                                </div>
+                                <div class="input icon">
+                                    <!-- <button type="button"></button> -->
+                                    <img src="img/icons/switch-between-lines.png" alt="Switch between lines"
+                                        onclick="onTextChange('switch-lines',1)">
+                                </div>
+                                <div class="input icon">
+                                    <img src="img/icons/add.png" alt="Add" onclick="onAddLine()">
+                                </div>
+                                <div class="input icon">
+                                    <img src="img/icons/trash.png" alt="Trash" onclick="onDeleteLineByLineIdx()">
+                                </div>
                             </div>
-                            <div class="input icon">
-                                <!-- <button type="button"></button> -->
-                                <img src="img/icons/switch-between-lines.png" alt="Switch between lines"
-                                    onclick="onTextChange('switch-lines',1)">
+                            <div class="ctrl line2 flex justify-center">
+                                <div class="input icon">
+                                    <img src="img/icons/increase-font-icon.png" alt="Increase font"
+                                        onclick="onTextChange('increase',1)">
+                                </div>
+                                <div class="input icon">
+                                    <img src="img/icons/decrease-font-icon.png" alt="Decrease font"
+                                        onclick="onTextChange('decrease',-1)">
+                                </div>
+                                <div class="input icon">
+                                    <img src="img/icons/align-to-left.png" alt="Align to left"
+                                        onclick="onTextChange('align-left','right')">
+                                </div>
+                                <div class="input icon">
+                                    <img src="img/icons/center-text-alignment.png" alt="Center text alignment"
+                                        onclick="onTextChange('align-center','center')">
+                                </div>
+                                <div class="input icon">
+                                    <img src="img/icons/align-to-right.png" alt="Align to right"
+                                        onclick="onTextChange('align-right','left')">
+                                </div>
                             </div>
-                            <div class="input icon">
-                                <img src="img/icons/add.png" alt="Add" onclick="onAddLine()">
+                            <div class="ctrl line3 flex justify-center">
+                                <div class="input select-font">
+                                    <select name="select-font" id="select-font" onchange="">
+                                        <option value="0">Impact</option>
+                                    </select>
+
+                                </div>
+                                <div class="input icon pos-relative">
+                                    <input type="color" class="stroke-color" name="stroke-color" id="stroke-color"
+                                        value="#ffffff" onchange="onTextChange('stroke-color',this.value)">
+                                    <img src="img/icons/text-stroke.png" alt="Text stroke">
+                                </div>
+                                <div class="input icon pos-relative">
+                                    <input type="color" class="fill-color" name="fill-color" id="fill-color"
+                                        value="#ffffff" onchange="onTextChange('fill-color',this.value)">
+                                    <!-- style="opacity:0; position:absolute; left:0;top:0;width:100%;height:100%;z-index: 2;" -->
+                                    <img src="img/icons/paint-board-and-brush.png" alt="Paint board and brush">
+                                </div>
                             </div>
-                            <div class="input icon">
-                                <img src="img/icons/trash.png" alt="Trash" onclick="onDeleteLineByLineIdx()">
+                            <div class="ctrl line4 flex justify-center">
+                                <!-- btn-align-right -->
+                                <a href="#" class="btn" download onclick="onDownload(this)">Download</a>
                             </div>
-                        </div>
-                        <div class="ctrl line2 flex justify-center">
-                            <div class="input icon">
-                                <img src="img/icons/increase-font-icon.png" alt="Increase font"
-                                    onclick="onTextChange('increase',1)">
-                            </div>
-                            <div class="input icon">
-                                <img src="img/icons/decrease-font-icon.png" alt="Decrease font"
-                                    onclick="onTextChange('decrease',-1)">
-                            </div>
-                            <div class="input icon">
-                                <img src="img/icons/align-to-left.png" alt="Align to left"
-                                    onclick="onTextChange('align-left','right')">
-                            </div>
-                            <div class="input icon">
-                                <img src="img/icons/center-text-alignment.png" alt="Center text alignment"
-                                    onclick="onTextChange('align-center','center')">
-                            </div>
-                            <div class="input icon">
-                                <img src="img/icons/align-to-right.png" alt="Align to right"
-                                    onclick="onTextChange('align-right','left')">
-                            </div>
-                        </div>
-                        <div class="ctrl line3 flex justify-center">
-                            <!-- <div class="input select-font">
-                                <select name="select-font" id="select-font" onchange="">
-                                    <option value="0">Impact</option>
-                                </select>
-                            </div> -->
-                            <div class="input icon pos-relative">
-                                <input type="color" class="stroke-color" name="stroke-color" id="stroke-color"
-                                    value="#ffffff" onchange="onTextChange('stroke-color',this.value)">
-                                <img src="img/icons/text-stroke.png" alt="Text stroke">
-                            </div>
-                            <div class="input icon pos-relative">
-                                <input type="color" class="fill-color" name="fill-color" id="fill-color" value="#ffffff"
-                                    onchange="onTextChange('fill-color',this.value)">
-                                <!-- style="opacity:0; position:absolute; left:0;top:0;width:100%;height:100%;z-index: 2;" -->
-                                <img src="img/icons/paint-board-and-brush.png" alt="Paint board and brush">
-                            </div>
-                        </div>
-                        <div class="ctrl line4 flex justify-center">
-                            <!-- btn-align-right -->
-                            <a href="#" class="btn" download onclick="onDownload(this)">Download</a>
-                        </div>
 
 
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <section class="about container">
-            <div class="inner-container">
+            <!-- About -->
+            <section class="about container">
+                <div class="inner-container">
 
-            </div>
-        </section>
+                </div>
+            </section>
+
+        </div>
     </main>
 
     <footer class="main-footer container">
@@ -143,7 +158,6 @@
     <script src="js/util-service.js"></script>
     <script src="js/storage-service.js"></script>
     <script src="js/meme-service.js"></script>
-    <!-- <script src="js/gallery-service.js"></script> -->
     <script src="js/util-controller.js"></script>
     <script src="js/meme-controller.js"></script>
     <script src="js/main.js"></script>

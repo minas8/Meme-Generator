@@ -4,15 +4,25 @@ const DEFAULT_TEXT_COLOR = 'white';
 const DEFAULT_BORDER_COLOR = 'black';
 const DEFAULT_FONT = 'Impact';
 
-var gKeywordsRate = { 'happy': 0, 'crazy': 0, 'sarcastic': 0, 'sad': 0, 'animal': 0, 'cute': 0 };
+var gKeywordsRate = {
+    'happy': 0, 'crazy': 0, 'sarcastic': 0, 'sad': 0,
+    'animal': 3, 'cute': 2, 'spooky': 0, 'seleb': 0,
+    'funny': 0
+};
 
 var gImgs = [
-    { id: 1, url: 'img/gallery/1.jpg', keywords: ['crazy'] }, // ../
-    { id: 2, url: 'img/gallery/2.jpg', keywords: ['animal'] }, // ../
-    { id: 3, url: 'img/gallery/3.jpg', keywords: ['animal'] }, // ../
-    { id: 4, url: 'img/gallery/4.jpg', keywords: ['animal'] }, // ../
-    { id: 5, url: 'img/gallery/5.jpg', keywords: ['cute'] }, // ../
-    { id: 6, url: 'img/gallery/6.jpg', keywords: ['crazy'] } // ../
+    { id: 1, url: 'img/gallery/1.jpg', keywords: ['crazy'] },
+    { id: 2, url: 'img/gallery/2.jpg', keywords: ['animal'] },
+    { id: 3, url: 'img/gallery/3.jpg', keywords: ['animal'] },
+    { id: 4, url: 'img/gallery/4.jpg', keywords: ['animal'] },
+    { id: 5, url: 'img/gallery/5.jpg', keywords: ['cute'] },
+    { id: 6, url: 'img/gallery/6.jpg', keywords: ['crazy'] },
+    { id: 7, url: 'img/gallery/7.jpg', keywords: ['spooky'] },
+    { id: 8, url: 'img/gallery/8.jpg', keywords: ['seleb'] },
+    { id: 9, url: 'img/gallery/9.jpg', keywords: ['spooky'] },
+    { id: 13, url: 'img/gallery/13.jpg', keywords: ['seleb'] },
+    { id: 16, url: 'img/gallery/16.jpg', keywords: ['funny'] },
+    { id: 18, url: 'img/gallery/18.jpg', keywords: ['cute'] }
 ];
 
 var gMeme = {
@@ -42,6 +52,15 @@ var gMeme = {
     ]
 }
 
+// Keywords //
+function getKeywordsRate() {
+    return gKeywordsRate;
+}
+function addKeywordsRate(keyword) {
+    gKeywordsRate[keyword] += 1;
+}
+
+// Imgs //
 function getImgs() {
     return gImgs;
 }
@@ -50,6 +69,11 @@ function getSelectedImg() {
         return img.id === gMeme.selectedImgId;
     });
 }
+function updateSelectedImg(imgId) {
+    gMeme.selectedImgId = imgId;
+}
+
+// Meme //
 function getMemeLines() {
     return gMeme.lines;
 }
@@ -68,11 +92,6 @@ function getLineIdxByLocation(yPos) {
         return (yPos > lineY && yPos < lineHeight);
     });
 }
-
-function updateSelectedImg(imgId) {
-    gMeme.selectedImgId = imgId;
-}
-
 function addLine(txt, size = 40, align = 'center', fillcolor = DEFAULT_TEXT_COLOR,
     strokecolor = DEFAULT_BORDER_COLOR, font = DEFAULT_FONT) {
     // if first line => up 
@@ -93,7 +112,6 @@ function addLine(txt, size = 40, align = 'center', fillcolor = DEFAULT_TEXT_COLO
     gMeme.lines.push(line);
     gMeme.selectedLineIdx = gMeme.lines.length - 1;
 }
-
 function updateLineText(lineIdx, txt) {
     gMeme.lines[lineIdx].txt = txt;
 }

@@ -3,6 +3,7 @@
 
 function init() {
     renderGallery();
+    renderKeyWords();
 }
 
 function renderGallery() {
@@ -15,6 +16,25 @@ function renderGallery() {
         });
         getEl('.gallery-imgs').innerHTML = strHTMLs.join('');
     }
+}
+
+function renderKeyWords() {
+    let keywordRates = getKeywordsRate();
+    var strHTML = '';
+
+    if (Object.keys(keywordRates).length > 0) {
+        for (const keyRate in keywordRates) {
+            strHTML += `<div class="keyword-item" style="font-size: ${12 + keywordRates[keyRate]}px;" 
+            onclick="onRate('${keyRate}')">${keyRate}</div>`;
+        }
+
+        getEl('.keywords-container').innerHTML = strHTML;
+    }
+}
+
+function onRate(keyword) {
+    addKeywordsRate(keyword);
+    renderKeyWords();
 }
 
 function onSelectImage(imgId) {

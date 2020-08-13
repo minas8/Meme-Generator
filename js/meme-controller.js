@@ -10,6 +10,10 @@ function initMeme(imgId) {
     updateSelectedImg(imgId);
     // init canvas with selected img
     initCanvas();
+
+    // window.addEventListener('resize', (ev) => {
+    //     resizeCanvas();
+    // });
 }
 
 function clearTxtInput() {
@@ -170,3 +174,14 @@ function getCursorPosition(event) {
     return { x, y };
 }
 
+// ***************** window event ***************** //
+
+// function resizeCanvas() {
+//     const elCanvas = document.querySelector('#meme-canvas');
+//     // Note: changing the canvas dimension this way clears the canvas
+//     gCanvas.width = elCanvas.width - 0;
+//     gCanvas.height = elCanvas.height - 0;
+
+//     // render canvas
+//     drawImgFromlocal(true);
+// }
