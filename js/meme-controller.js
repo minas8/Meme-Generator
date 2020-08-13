@@ -25,7 +25,7 @@ function onAddLine() {
     addLine();
     clearTxtInput();
     // render canvas
-    drawImgFromlocal();
+    drawImgFromlocal(true);
 }
 function onDeleteLineByLineIdx() {
     // update model
@@ -33,7 +33,7 @@ function onDeleteLineByLineIdx() {
     deleteLine(lineIdx);
     clearTxtInput();
     // render canvas
-    drawImgFromlocal();
+    drawImgFromlocal(true);
 }
 // actionDesc = action description
 function onTextChange(actionDesc, value) {
@@ -75,7 +75,15 @@ function onTextChange(actionDesc, value) {
     }
 
     // render canvas
-    drawImgFromlocal();
+    drawImgFromlocal(true);
+}
+
+function onDownload(elDownload) {
+    // render canvas to clean rectangle
+    // drawImgFromlocal(false);
+    let imageData = gCanvas.toDataURL('image/jpg');
+    elDownload.href = imageData;
+    elDownload.download = 'canvas.jpg';
 }
 
 // -------- Canvas funcs -------- //
@@ -89,15 +97,15 @@ function initCanvas() {
         const lineIdx = getLineIdxByLocation(y);
         if (lineIdx > -1) {
             updateSelectedLineByLineIdx(lineIdx);
-            drawImgFromlocal();
+            drawImgFromlocal(true);
         }
     });
 
-    drawImgFromlocal();
+    drawImgFromlocal(true);
 }
 
 // e. Create a Canvas with a single image – the image shall be taken from gMeme (managed by a memeService)
-function drawImgFromlocal(txt) {
+function drawImgFromlocal(isShowRect) {
     var img = new Image();
     img.onload = () => {
         // using image aspect-ratio to calculate canvas height from its width
@@ -111,9 +119,12 @@ function drawImgFromlocal(txt) {
                 // destructuring vars from selectedLine
                 const { txt, font, size, align, strokecolor, fillcolor, x, y } = line;
 
-                if (lineIdx === idx) {
+                if (lineIdx === idx && isShowRect) {
                     drawRect(y, size);
                 }
+                // else if (lineIdx === idx && isShowRect) {
+                //     downloadImg();
+                // }
 
                 drawText(txt, font, size, align, strokecolor, fillcolor, x, y);
             });

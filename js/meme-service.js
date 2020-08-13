@@ -104,7 +104,20 @@ function updateLineY(lineIdx, y) {
     gMeme.lines[lineIdx].y += y;
 }
 function updateLineAlign(lineIdx, align) {
-    gMeme.lines[lineIdx].align = align;
+    switch (align) {
+        case 'left':
+            gMeme.lines[lineIdx].align = align; //'right';
+            gMeme.lines[lineIdx].x = 535 - (gMeme.lines[lineIdx].txt.length * 20);
+            break;
+        case 'center':
+            gMeme.lines[lineIdx].align = align;
+            gMeme.lines[lineIdx].x = 275;
+            break;
+        case 'right':
+            gMeme.lines[lineIdx].align = align; //'left';
+            gMeme.lines[lineIdx].x = 15 + (gMeme.lines[lineIdx].txt.length * 20);
+            break;
+    }
 }
 function updateLineFillColor(lineIdx, fillcolor) {
     gMeme.lines[lineIdx].fillcolor = fillcolor;
