@@ -12,15 +12,29 @@ function initMeme(imgId) {
     initCanvas();
 }
 
+function clearTxtInput() {
+    const elInput = document.querySelector('.input-text');
+    elInput.value = '';
+    elInput.focus();
+}
+
 // -------- User Actions funcs -------- //
 
 function onAddLine() {
     // update model
     addLine();
+    clearTxtInput();
     // render canvas
     drawImgFromlocal();
 }
-
+function onDeleteLineByLineIdx() {
+    // update model
+    const lineIdx = getSelectedLineIdx();
+    deleteLine(lineIdx);
+    clearTxtInput();
+    // render canvas
+    drawImgFromlocal();
+}
 // actionDesc = action description
 function onTextChange(actionDesc, value) {
     const lineIdx = getSelectedLineIdx();
@@ -53,6 +67,7 @@ function onTextChange(actionDesc, value) {
             break;
         case 'switch-lines':
             switchLines(lineIdx, value);
+            clearTxtInput();
             break;
 
         default:
@@ -70,7 +85,12 @@ function initCanvas() {
     gCtx = gCanvas.getContext('2d');
 
     gCanvas.addEventListener('mousedown', function (e) {
-        getCursorPosition(e);
+        const { x, y } = getCursorPosition(e);
+        const lineIdx = getLineIdxByLocation(y);
+        if (lineIdx > -1) {
+            updateSelectedLineByLineIdx(lineIdx);
+            drawImgFromlocal();
+        }
     });
 
     drawImgFromlocal();
@@ -91,7 +111,9 @@ function drawImgFromlocal(txt) {
                 // destructuring vars from selectedLine
                 const { txt, font, size, align, strokecolor, fillcolor, x, y } = line;
 
-                if (lineIdx === idx) drawRect(y, size);
+                if (lineIdx === idx) {
+                    drawRect(y, size);
+                }
 
                 drawText(txt, font, size, align, strokecolor, fillcolor, x, y);
             });
@@ -103,6 +125,7 @@ function drawImgFromlocal(txt) {
 
 // f. Draw a text line on it with IMPACT font at the top of the image.
 function drawText(txt, font, size, align, strokecolor, fillcolor, x, y) {
+    txt = !txt ? '' : txt;
     gCtx.lineWidth = '2';
     gCtx.strokeStyle = strokecolor;
     gCtx.fillStyle = fillcolor;
@@ -112,16 +135,27 @@ function drawText(txt, font, size, align, strokecolor, fillcolor, x, y) {
     gCtx.strokeText(txt, x, y);
 }
 
-function drawRect(y, size) {
+function getRectByYSize(yPos, size) {
+    return {
+        x: 10,
+        y: yPos - size,
+        width: gCanvas.width - 20,
+        height: size + 10
+    };
+}
+function drawRect(yPos, size) {
+    const { x, y, width, height } = getRectByYSize(yPos, size);
     gCtx.beginPath();
-    gCtx.rect(10, y - size, gCanvas.width - 20, size + 10); /// x, y, width, height
+    gCtx.rect(x, y, width, height); /// x, y, width, height
     gCtx.strokeStyle = 'white';
     gCtx.stroke();
 }
 
 function getCursorPosition(event) {
-    const rect = gCanvas.getBoundingClientRect()
-    const x = event.clientX - rect.left
-    const y = event.clientY - rect.top
-    // console.log("x: " + x + " y: " + y)
+    const rect = gCanvas.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+    console.log("x: " + x + " y: " + y)
+    return { x, y };
 }
+

@@ -19,26 +19,26 @@ var gMeme = {
     selectedImgId: 1,
     selectedLineIdx: 0,
     lines: [
-        {
-            txt: 'I never eat Falafel',
-            size: 40,
-            align: 'center',
-            fillcolor: DEFAULT_TEXT_COLOR,
-            strokecolor: DEFAULT_BORDER_COLOR,
-            font: DEFAULT_FONT,
-            x: 275,
-            y: 50
-        },
-        {
-            txt: 'Second line',
-            size: 40,
-            align: 'center',
-            fillcolor: DEFAULT_TEXT_COLOR,
-            strokecolor: DEFAULT_BORDER_COLOR,
-            font: DEFAULT_FONT,
-            x: 275,
-            y: 500
-        }
+        // {
+        //     txt: 'I never eat Falafel',
+        //     size: 40,
+        //     align: 'center',
+        //     fillcolor: DEFAULT_TEXT_COLOR,
+        //     strokecolor: DEFAULT_BORDER_COLOR,
+        //     font: DEFAULT_FONT,
+        //     x: 275,
+        //     y: 50
+        // },
+        // {
+        //     txt: 'Second line',
+        //     size: 40,
+        //     align: 'center',
+        //     fillcolor: DEFAULT_TEXT_COLOR,
+        //     strokecolor: DEFAULT_BORDER_COLOR,
+        //     font: DEFAULT_FONT,
+        //     x: 275,
+        //     y: 500
+        // }
     ]
 }
 
@@ -59,13 +59,27 @@ function getSelectedLineIdx() {
 function getSelectedLineByIdx(lineIdx) {
     return gMeme.lines[lineIdx];
 }
+function getLineIdxByLocation(yPos) {
+    return gMeme.lines.findIndex((line) => {
+
+        const lineY = line.y - line.size;
+        const lineHeight = line.y + 5;
+
+        return (yPos > lineY && yPos < lineHeight);
+    });
+}
 
 function updateSelectedImg(imgId) {
     gMeme.selectedImgId = imgId;
 }
 
-function addLine(txt, size, align, fillcolor = DEFAULT_TEXT_COLOR,
+function addLine(txt, size = 40, align = 'center', fillcolor = DEFAULT_TEXT_COLOR,
     strokecolor = DEFAULT_BORDER_COLOR, font = DEFAULT_FONT) {
+    // if first line => up 
+    // if second line => bottom
+    // else => random
+    let y = gMeme.lines.length === 0 ? 50 : gMeme.lines.length === 1 ? 500 : getRndInt(70, 401);
+
     let line = {
         txt,
         size,
@@ -74,9 +88,10 @@ function addLine(txt, size, align, fillcolor = DEFAULT_TEXT_COLOR,
         strokecolor,
         font,
         x: 275,
-        y: getRndInt(70, 401)
+        y //: getRndInt(70, 401)
     };
     gMeme.lines.push(line);
+    gMeme.selectedLineIdx = gMeme.lines.length - 1;
 }
 
 function updateLineText(lineIdx, txt) {
@@ -101,6 +116,9 @@ function switchLines(lineIdx, value) {
     const newIdx = lineIdx + value;
     gMeme.selectedLineIdx = newIdx < gMeme.lines.length ? newIdx : 0;
 }
+function updateSelectedLineByLineIdx(lineIdx) {
+    gMeme.selectedLineIdx = lineIdx;
+}
 function deleteLine(lineIdx) {
-
+    gMeme.lines.splice(lineIdx, 1);
 }

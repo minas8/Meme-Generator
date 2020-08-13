@@ -66,6 +66,15 @@ input, select {
     height: 66px;
     background-color: #ff7f00;
 }
+.main-nav,.main-nav a {
+    font-size: 1.1875rem;
+    padding: 16px;
+    color: #ffffff;
+    text-decoration: none;
+}
+.main-nav a:first-child {
+    border-right: 1px solid #8a8a8a;
+}
 
 /* MAIN */
 
