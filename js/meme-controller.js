@@ -1,5 +1,4 @@
 'use strict'
-// console.log('MEME');
 
 var gMemeSelected;
 var gCanvas;
@@ -82,13 +81,17 @@ function onTextChange(actionDesc, value) {
     drawImgFromlocal(true);
 }
 
-function onDownload(elDownload) {
-    // render canvas to clean rectangle
-    // drawImgFromlocal(false);
-    let imageData = gCanvas.toDataURL('image/jpg');
-    elDownload.href = imageData;
-    elDownload.download = 'canvas.jpg';
-}
+// function onDownload(elDownload) {
+//     // render canvas to clean rectangle
+//     updateSelectedLineByLineIdx(-1);
+//     drawImgFromlocal();
+// }
+
+// function downloadImg() {
+//     let imageData = gCanvas.toDataURL('image/jpg');
+//     elDownload.href = imageData;
+//     elDownload.download = 'canvas.jpg';
+// }
 
 // -------- Canvas funcs -------- //
 
@@ -109,7 +112,7 @@ function initCanvas() {
 }
 
 // e. Create a Canvas with a single image – the image shall be taken from gMeme (managed by a memeService)
-function drawImgFromlocal(isShowRect) {
+function drawImgFromlocal() {
     var img = new Image();
     img.onload = () => {
         // using image aspect-ratio to calculate canvas height from its width
@@ -123,16 +126,14 @@ function drawImgFromlocal(isShowRect) {
                 // destructuring vars from selectedLine
                 const { txt, font, size, align, strokecolor, fillcolor, x, y } = line;
 
-                if (lineIdx === idx && isShowRect) {
+                drawText(txt, font, size, align, strokecolor, fillcolor, x, y);
+                if (lineIdx === idx) {
                     drawRect(y, size);
                 }
-                // else if (lineIdx === idx && isShowRect) {
-                //     downloadImg();
-                // }
 
-                drawText(txt, font, size, align, strokecolor, fillcolor, x, y);
             });
         }
+        // if (lineIdx) downloadImg();
     }
     const selectedImg = getSelectedImg();
     img.src = selectedImg.url;

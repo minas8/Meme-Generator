@@ -1,9 +1,8 @@
 'use strict'
-// console.log('MAIN');
 
 function init() {
     renderGallery();
-    renderKeyWords();
+    // renderKeyWords();
 }
 
 function renderGallery() {
@@ -18,24 +17,24 @@ function renderGallery() {
     }
 }
 
-function renderKeyWords() {
-    let keywordRates = getKeywordsRate();
-    var strHTML = '';
+// function renderKeyWords() {
+//     let keywordRates = getKeywordsRate();
+//     var strHTML = '';
 
-    if (Object.keys(keywordRates).length > 0) {
-        for (const keyRate in keywordRates) {
-            strHTML += `<div class="keyword-item" style="font-size: ${12 + keywordRates[keyRate]}px;" 
-            onclick="onRate('${keyRate}')">${keyRate}</div>`;
-        }
+//     if (Object.keys(keywordRates).length > 0) {
+//         for (const keyRate in keywordRates) {
+//             strHTML += `<div class="keyword-item" style="font-size: ${12 + keywordRates[keyRate]}px;" 
+//             onclick="onRate('${keyRate}')">${keyRate}</div>`;
+//         }
 
-        getEl('.keywords-container').innerHTML = strHTML;
-    }
-}
+//         getEl('.keywords-container').innerHTML = strHTML;
+//     }
+// }
 
-function onRate(keyword) {
-    addKeywordsRate(keyword);
-    renderKeyWords();
-}
+// function onRate(keyword) {
+//     addKeywordsRate(keyword);
+//     renderKeyWords();
+// }
 
 function onSelectImage(imgId) {
     // hide gallery and search sections
