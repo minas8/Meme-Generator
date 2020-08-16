@@ -42,15 +42,6 @@ input, select {
     font-size: 1.25rem;
     outline: none;
 }
-/* select {
-    width: 0px;
-    height: 0px;
-    overflow:hidden;
-    outline: none;
-    border: none;
-    appearance:none;
-    -moz-appearance: none;  
-} */
   
 
 /* LAYOUT */
@@ -192,6 +183,11 @@ input, select {
 .canvas-container {
     padding-right: 50px;
 }
+.rect-selected-line {
+    position: absolute;
+    display: none;
+    border: 1px solid #ffffff;
+}
 .control-box {
     padding-left: 50px; 
     width: 50%;
@@ -219,6 +215,9 @@ input, select {
     border: none;
     background-color: #ffffff;
     width: 175px;
+}
+.select-font:focus {
+    outline: none;
 }
 .fill-color, .stroke-color {
     opacity:0; 

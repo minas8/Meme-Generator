@@ -10,9 +10,9 @@ function initMeme(imgId) {
     // init canvas with selected img
     initCanvas();
 
-    // window.addEventListener('resize', (ev) => {
-    //     resizeCanvas();
-    // });
+    window.addEventListener('resize', (ev) => {
+        resizeCanvas();
+    });
 }
 
 function clearTxtInput() {
@@ -74,7 +74,6 @@ function onTextChange(actionDesc, value) {
             break;
         case 'select-font':
             updateLineFont(lineIdx, value);
-            // clearTxtInput();
             break;
 
         default:
@@ -85,17 +84,18 @@ function onTextChange(actionDesc, value) {
     drawImgFromlocal(true);
 }
 
-// function onDownload(elDownload) {
-//     // render canvas to clean rectangle
-//     updateSelectedLineByLineIdx(-1);
-//     drawImgFromlocal();
-// }
+function onDownload(elLink) {
+    // render canvas to clean rectangle
+    updateSelectedLineByLineIdx(-1);
+    drawImgFromlocal();
+    setTimeout(() => downloadImg(elLink), 1000);
+}
 
-// function downloadImg() {
-//     let imageData = gCanvas.toDataURL('image/jpg');
-//     elDownload.href = imageData;
-//     elDownload.download = 'canvas.jpg';
-// }
+function downloadImg(elLink) {
+    const imageData = gCanvas.toDataURL('image/jpg');
+    elLink.href = imageData;
+    elLink.download = 'canvas.jpg';
+}
 
 // -------- Canvas funcs -------- //
 
@@ -131,13 +131,11 @@ function drawImgFromlocal() {
                 const { txt, font, size, align, strokecolor, fillcolor, x, y } = line;
 
                 drawText(txt, font, size, align, strokecolor, fillcolor, x, y);
-                if (lineIdx === idx) {
+                if (lineIdx === idx && lineIdx > -1) {
                     drawRect(y, size);
                 }
-
             });
         }
-        // if (lineIdx) downloadImg();
     }
     const selectedImg = getSelectedImg();
     img.src = selectedImg.url;
@@ -154,7 +152,6 @@ function drawText(txt, font, size, align, strokecolor, fillcolor, x, y) {
     gCtx.fillText(txt, x, y);
     gCtx.strokeText(txt, x, y);
 }
-
 function getRectByYSize(yPos, size) {
     return {
         x: 10,
@@ -163,8 +160,8 @@ function getRectByYSize(yPos, size) {
         height: size + 10
     };
 }
-function drawRect(yPos, size) {
-    const { x, y, width, height } = getRectByYSize(yPos, size);
+function drawRect(lineY, size) {
+    const { x, y, width, height } = getRectByYSize(lineY, size);
     gCtx.beginPath();
     gCtx.rect(x, y, width, height); /// x, y, width, height
     gCtx.strokeStyle = 'white';
@@ -175,18 +172,18 @@ function getCursorPosition(event) {
     const rect = gCanvas.getBoundingClientRect();
     const x = event.clientX - rect.left;
     const y = event.clientY - rect.top;
-    console.log("x: " + x + " y: " + y)
+    // console.log("x: " + x + " y: " + y)
     return { x, y };
 }
 
 // ***************** window event ***************** //
 
-// function resizeCanvas() {
-//     const elCanvas = document.querySelector('#meme-canvas');
-//     // Note: changing the canvas dimension this way clears the canvas
-//     gCanvas.width = elCanvas.width - 0;
-//     gCanvas.height = elCanvas.height - 0;
-
-//     // render canvas
-//     drawImgFromlocal(true);
-// }
+function resizeCanvas() {
+    const elContainer = document.querySelector('.canvas-container');
+    // Note: changing the canvas dimension this way clears the canvas
+    const winWidth = window.innerWidth;
+    gCanvas.height = Math.round((gCanvas.height / gCanvas.width) * (winWidth / 2));
+    gCanvas.width = winWidth / 2; //elContainer.offsetWidth;
+    // render canvas
+    drawImgFromlocal(true);
+}
