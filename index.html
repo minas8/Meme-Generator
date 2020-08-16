@@ -105,12 +105,14 @@
                                 </div>
                             </div>
                             <div class="ctrl line3 flex justify-center">
-                                <!-- <div class="input select-font">
-                                    <select name="select-font" id="select-font" onchange="">
-                                        <option value="0">Impact</option>
+                                <div class="input select-container">
+                                    <select class="select-font" onchange="onTextChange('select-font',this.value)">
+                                        <option>Impact</option>
+                                        <option>Arial</option>
+                                        <option>Montserrat-Regular</option>
                                     </select>
 
-                                </div> -->
+                                </div>
                                 <div class="input icon pos-relative">
                                     <input type="color" class="stroke-color" name="stroke-color" id="stroke-color"
                                         value="#ffffff" onchange="onTextChange('stroke-color',this.value)">

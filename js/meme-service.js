@@ -107,7 +107,7 @@ function addLine(txt, size = 40, align = 'center', fillcolor = DEFAULT_TEXT_COLO
         strokecolor,
         font,
         x: 275,
-        y //: getRndInt(70, 401)
+        y
     };
     gMeme.lines.push(line);
     gMeme.selectedLineIdx = gMeme.lines.length - 1;
@@ -142,6 +142,9 @@ function updateLineFillColor(lineIdx, fillcolor) {
 }
 function updateLineStrokeColor(lineIdx, strokecolor) {
     gMeme.lines[lineIdx].strokecolor = strokecolor;
+}
+function updateLineFont(lineIdx, font) {
+    gMeme.lines[lineIdx].font = font;
 }
 function switchLines(lineIdx, value) {
     const newIdx = lineIdx + value;

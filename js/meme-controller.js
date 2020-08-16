@@ -72,6 +72,10 @@ function onTextChange(actionDesc, value) {
             switchLines(lineIdx, value);
             clearTxtInput();
             break;
+        case 'select-font':
+            updateLineFont(lineIdx, value);
+            // clearTxtInput();
+            break;
 
         default:
             break;

@@ -19,6 +19,10 @@
     font-family: Montserrat-Thin;
     src: url(../fonts/montserrat/Montserrat-Thin.ttf);
 }
+@font-face {
+    font-family:Impact;
+    src: url(../fonts/impact/impact.ttf);
+}
 
 /* BASE */
 
@@ -78,6 +82,10 @@ input, select {
 .header-container {
     height: 100%;
     background-color: #ff7f00;
+}
+.header-logo {
+    display: flex;
+    align-items: center;
 }
 .logo {
     padding-top: 10px;
@@ -200,14 +208,17 @@ input, select {
     /* padding: 10px; */
 }
 .input-text {    
-    width: 80%;
+    width: 340px;
     height: 60px;
     /* margin: 0px 10px 10px; */
 }
-.select-font {
+.select-container {
     padding: 10px;
-    /* border-radius: 12px;
-    background-color: #ffffff; */
+}
+.select-font {
+    border: none;
+    background-color: #ffffff;
+    width: 175px;
 }
 .fill-color, .stroke-color {
     opacity:0; 
