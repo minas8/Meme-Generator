@@ -7,8 +7,13 @@ var gCtx;
 function initMeme(imgId) {
     // update model
     updateSelectedImg(imgId);
+
     // init canvas with selected img
     initCanvas();
+
+    // if mobile => resizeCanvas()
+    const winWidth = window.innerWidth;
+    if (winWidth <= 680) resizeCanvas();
 
     window.addEventListener('resize', (ev) => {
         resizeCanvas();
@@ -86,9 +91,12 @@ function onTextChange(actionDesc, value) {
 
 function onDownload(elLink) {
     // render canvas to clean rectangle
-    updateSelectedLineByLineIdx(-1);
-    drawImgFromlocal();
-    setTimeout(() => downloadImg(elLink), 1000);
+    for (let i = 0; i < 2; i++) {
+        updateSelectedLineByLineIdx(-1);
+        drawImgFromlocal();
+    }
+
+    setTimeout(() => downloadImg(elLink), 2000);
 }
 
 function downloadImg(elLink) {
@@ -137,8 +145,8 @@ function drawImgFromlocal() {
             });
         }
     }
-    const selectedImg = getSelectedImg();
-    img.src = selectedImg.url;
+    // const selectedImg = getSelectedImgUrl();
+    img.src = getSelectedImgUrl(); //selectedImg.url;
 }
 
 // f. Draw a text line on it with IMPACT font at the top of the image.
@@ -182,8 +190,13 @@ function resizeCanvas() {
     const elContainer = document.querySelector('.canvas-container');
     // Note: changing the canvas dimension this way clears the canvas
     const winWidth = window.innerWidth;
-    gCanvas.height = Math.round((gCanvas.height / gCanvas.width) * (winWidth / 2));
-    gCanvas.width = winWidth / 2; //elContainer.offsetWidth;
+    if (winWidth <= 680) {
+        gCanvas.height = Math.round((gCanvas.height / gCanvas.width) * (winWidth - 20));
+        gCanvas.width = winWidth - 20;
+    } else {
+        gCanvas.height = Math.round((gCanvas.height / gCanvas.width) * (winWidth / 2));
+        gCanvas.width = winWidth / 2; //elContainer.offsetWidth;
+    }
     // render canvas
     drawImgFromlocal(true);
 }

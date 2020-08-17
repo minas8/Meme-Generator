@@ -1,12 +1,14 @@
 'use strict'
 
+var gKeyWordsCount = 6;
+
 function init() {
     renderGallery();
-    // renderKeyWords();
+    renderKeyWords(gKeyWordsCount);
 }
 
 function renderGallery() {
-    let imgs = getImgs();
+    const imgs = getImgsForDisplay();
 
     if (imgs.length > 0) {
         var strHTMLs = imgs.map((img) => {
@@ -17,29 +19,34 @@ function renderGallery() {
     }
 }
 
-// function renderKeyWords() {
-//     let keywordRates = getKeywordsRate();
-//     var strHTML = '';
+function renderKeyWords(endIdx) {
+    const keywordRates = getKeywordsRate(endIdx);
+    var strHTML = '';
 
-//     if (Object.keys(keywordRates).length > 0) {
-//         for (const keyRate in keywordRates) {
-//             strHTML += `<div class="keyword-item" style="font-size: ${12 + keywordRates[keyRate]}px;" 
-//             onclick="onRate('${keyRate}')">${keyRate}</div>`;
-//         }
+    if (keywordRates.length > 0) {
+        for (let i = 0; i < keywordRates.length; i++) {
+            const keywordRate = keywordRates[i];
+            strHTML += `<div class="keyword-item" style="font-size: ${12 + keywordRate[1]}px;" 
+            onclick="onFilter('${keywordRate[0]}');onRate('${keywordRate[0]}')">${keywordRate[0]}</div>`;
+        }
 
-//         getEl('.keywords-container').innerHTML = strHTML;
-//     }
-// }
+        getEl('.keywords-container').innerHTML = strHTML;
+    }
+}
 
-// function onRate(keyword) {
-//     addKeywordsRate(keyword);
-//     renderKeyWords();
-// }
+function onRate(keyword) {
+    addKeywordsRate(keyword);
+    renderKeyWords(gKeyWordsCount);
+    renderGallery();
+}
+function onFilter(filterBy) {
+    setFilter(filterBy);
+}
 
 function onSelectImage(imgId) {
     // hide gallery and search sections
     hideElem('image-gallery');
-    hideElem('search-container');
+    hideElem('main-search');
 
     // show meme editor section
     showElem('meme-editor');
@@ -53,5 +60,8 @@ function onShowGallery() {
 
     // show gallery and search sections
     showElem('image-gallery');
-    showElem('search-container');
+    showElem('main-search');
+
+    setFilter('all');
+    renderGallery();
 }

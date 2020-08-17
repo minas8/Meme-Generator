@@ -1,0 +1,30 @@
+/* HELPERS */
+
+/* flex helpers */
+
+.flex {
+    display: flex;
+}
+.direction-column {
+    flex-direction: column;
+}
+.justify-center {
+    justify-content: center;    
+}
+.align-items {
+    align-items: center;
+}
+.space-between {
+    justify-content: space-between;
+}
+.space-evenly {
+    justify-content: space-evenly;
+}
+
+/* list helpers */
+
+.clean-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}

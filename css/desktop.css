@@ -1,0 +1,14 @@
+/* LAYOUT */
+
+.container{
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.inner-container {
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+/* nav-bar */
+

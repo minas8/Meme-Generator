@@ -11,17 +11,29 @@
 <body onload="init()">
 
     <header class="main-header">
-        <div class="nav-bar-bg container ">
-            <div class="nav-bar inner-container">
+
+        <div class="nav-bar-bg container">
+            <div class="nav-bar inner-container flex space-between align-items">
                 <div class="logo header-logo">
-                    <img src="img/logo.png" alt="MemeGen logo">
+                    <img class="logo" src="img/logo.png" alt="MemeGen logo">
                 </div>
-                <ul class="main-nav clean-list">
+                <ul class="main-nav clean-list flex">
+                    <!-- ☰ -->
                     <li class="clicked"><a href="#" onclick="onShowGallery()">Gallery</a></li>
                     <li><a href="#">About</a></li>
                 </ul>
             </div>
         </div>
+
+        <!-- <div class="nav-bar-bg container ">
+            <div class="nav-bar inner-container">
+                <img class="logo" src="img/logo.png" alt="MemeGen logo">
+                <ul class="main-nav clean-list">
+                    <li class="clicked"><a href="#" onclick="onShowGallery()">Gallery</a></li>
+                    <li><a href="#">About</a></li>
+                </ul>
+            </div>
+        </div> -->
     </header>
 
     <main class="main-content container">
@@ -29,14 +41,17 @@
 
             <!-- Search -->
             <section class="main-search">
-                <div class="search-container inner-container flex">
+                <div class="search-container inner-container flex space-between">
                     <div class="search">
+                        <!-- <div class="ctrl txt-ctrl"> -->
+                        <input class="search-text" type="text" name="txt" placeholder="Enter search keyword"
+                            oninput="onSearch(this.value)">
+                        <!-- </div> -->
                         <!-- <input type="search" name="search" id="search"> -->
                         <!-- <img src="img/icons/search-icon.png" alt=""> -->
                     </div>
-                    <!-- <div class="keywords-container">
-
-                    </div> -->
+                    <div class="keywords-container">
+                    </div>
                 </div>
             </section>
 
@@ -56,7 +71,7 @@
                         <div class="canvas-container">
                             <canvas id="meme-canvas" width="550" height="540"></canvas>
                         </div>
-                        <div class="rect-selected-line"></div>
+                        <!-- <div class="rect-selected-line"></div> -->
                         <div class="control-box">
                             <div class="ctrl txt-ctrl">
                                 <input class="input input-text" type="text" name="txt"
@@ -117,13 +132,14 @@
                                 <div class="input icon pos-relative">
                                     <input type="color" class="stroke-color" name="stroke-color" id="stroke-color"
                                         value="#ffffff" onchange="onTextChange('stroke-color',this.value)">
-                                    <img src="img/icons/text-stroke.png" alt="Text stroke">
+                                    <img class="stroke" src="img/icons/text-stroke.png" alt="Text stroke">
                                 </div>
                                 <div class="input icon pos-relative">
                                     <input type="color" class="fill-color" name="fill-color" id="fill-color"
                                         value="#ffffff" onchange="onTextChange('fill-color',this.value)">
                                     <!-- style="opacity:0; position:absolute; left:0;top:0;width:100%;height:100%;z-index: 2;" -->
-                                    <img src="img/icons/paint-board-and-brush.png" alt="Paint board and brush">
+                                    <img class="fill" src="img/icons/paint-board-and-brush.png"
+                                        alt="Paint board and brush">
                                 </div>
                             </div>
                             <div class="ctrl line4 flex justify-center">
@@ -148,7 +164,7 @@
     <footer class="main-footer container">
         <div class="footer inner-container">
             <div class="logo footer-logo">
-                <img src="img/logo.png" alt="MemeGen logo">
+                <img class="logo" src="img/logo.png" alt="MemeGen logo">
             </div>
             <small class="copyrights">
                 © all rights reserved 2019
@@ -159,6 +175,7 @@
     <script src="js/util-service.js"></script>
     <script src="js/storage-service.js"></script>
     <script src="js/meme-service.js"></script>
+    <script src="js/gallery-service.js"></script>
     <script src="js/util-controller.js"></script>
     <script src="js/meme-controller.js"></script>
     <script src="js/main.js"></script>

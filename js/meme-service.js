@@ -6,13 +6,13 @@ const DEFAULT_FONT = 'Impact';
 
 var gKeywordsRate = {
     'happy': 0, 'crazy': 0, 'sarcastic': 0, 'sad': 0,
-    'animal': 3, 'cute': 2, 'spooky': 0, 'seleb': 0,
+    'animal': 0, 'cute': 0, 'spooky': 0, 'seleb': 0,
     'funny': 0
 };
 
 var gImgs = [
     { id: 1, url: 'img/gallery/1.jpg', keywords: ['crazy'] },
-    { id: 2, url: 'img/gallery/2.jpg', keywords: ['animal'] },
+    { id: 2, url: 'img/gallery/2.jpg', keywords: ['animal', 'cute'] },
     { id: 3, url: 'img/gallery/3.jpg', keywords: ['animal'] },
     { id: 4, url: 'img/gallery/4.jpg', keywords: ['animal'] },
     { id: 5, url: 'img/gallery/5.jpg', keywords: ['cute'] },
@@ -29,16 +29,16 @@ var gMeme = {
     selectedImgId: 1,
     selectedLineIdx: 0,
     lines: [
-        // {
-        //     txt: 'I never eat Falafel',
-        //     size: 40,
-        //     align: 'center',
-        //     fillcolor: DEFAULT_TEXT_COLOR,
-        //     strokecolor: DEFAULT_BORDER_COLOR,
-        //     font: DEFAULT_FONT,
-        //     x: 275,
-        //     y: 50
-        // },
+        {
+            txt: 'Enter your text',
+            size: 40,
+            align: 'center',
+            fillcolor: DEFAULT_TEXT_COLOR,
+            strokecolor: DEFAULT_BORDER_COLOR,
+            font: DEFAULT_FONT,
+            x: 275,
+            y: 50
+        }
         // {
         //     txt: 'Second line',
         //     size: 40,
@@ -52,22 +52,12 @@ var gMeme = {
     ]
 }
 
-// Keywords //
-function getKeywordsRate() {
-    return gKeywordsRate;
-}
-function addKeywordsRate(keyword) {
-    gKeywordsRate[keyword] += 1;
-}
-
 // Imgs //
-function getImgs() {
-    return gImgs;
-}
-function getSelectedImg() {
-    return gImgs.find((img) => {
+function getSelectedImgUrl() {
+    const selectedImg = gImgs.find((img) => {
         return img.id === gMeme.selectedImgId;
     });
+    return selectedImg.url;
 }
 function updateSelectedImg(imgId) {
     gMeme.selectedImgId = imgId;
@@ -95,9 +85,11 @@ function getLineIdxByLocation(yPos) {
 function addLine(txt, size = 40, align = 'center', fillcolor = DEFAULT_TEXT_COLOR,
     strokecolor = DEFAULT_BORDER_COLOR, font = DEFAULT_FONT) {
     // if first line => up 
+    // gMeme.lines.length === 0 ? 50 : 
+
     // if second line => bottom
     // else => random
-    let y = gMeme.lines.length === 0 ? 50 : gMeme.lines.length === 1 ? 500 : getRndInt(70, 401);
+    let y = gMeme.lines.length === 1 ? 500 : getRndInt(70, 401);
 
     let line = {
         txt,
